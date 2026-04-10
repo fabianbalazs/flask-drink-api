@@ -4,8 +4,6 @@ A simple REST API built with Python and Flask for managing drinks.
 
 This project was created as a learning exercise to understand how backend web applications work, including REST API design, database models, and CRUD operations using SQLAlchemy.
 
----
-
 ## Features
 
 * Retrieve a list of drinks
@@ -14,7 +12,7 @@ This project was created as a learning exercise to understand how backend web ap
 * Delete a drink
 * SQLite database integration
 
----
+
 
 ## Tech Stack
 
@@ -24,7 +22,7 @@ This project was created as a learning exercise to understand how backend web ap
 * SQLite
 * REST API
 
----
+
 
 ## Project Structure
 
@@ -39,7 +37,7 @@ flask-drink-api
 └── .gitignore        # Ignored files for Git
 ```
 
----
+
 
 ## Installation
 
@@ -67,7 +65,7 @@ Run the application:
 python app.py
 ```
 
----
+
 
 ## API Endpoints
 
@@ -90,7 +88,7 @@ Example response:
 }
 ```
 
----
+
 
 ### Get a single drink
 
@@ -98,7 +96,6 @@ GET /drinks/<id>
 
 Returns a single drink by its ID.
 
----
 
 ### Add a drink
 
@@ -113,7 +110,6 @@ Example request body:
 }
 ```
 
----
 
 ### Delete a drink
 
@@ -121,7 +117,6 @@ DELETE /drinks/<id>
 
 Deletes a drink from the database.
 
----
 
 ## Learning Goals
 
@@ -133,7 +128,6 @@ This project helped me practice:
 * Structuring a Python backend project
 * Using Git and GitHub for version control
 
----
 
 ## Future Improvements
 
