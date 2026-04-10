@@ -139,7 +139,7 @@ Possible future improvements for this project:
 * Add authentication
 * Create a frontend interface
 
----
+
 
 ## Author
 
