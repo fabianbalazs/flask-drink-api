@@ -28,6 +28,7 @@ This project was created as a learning exercise to understand how backend web ap
 
 ## Project Structure
 
+```
 flask-drink-api
 │
 ├── app.py            # Main application and API routes
@@ -36,6 +37,7 @@ flask-drink-api
 ├── requirements.txt  # Project dependencies
 ├── README.md         # Project documentation
 └── .gitignore        # Ignored files for Git
+```
 
 ---
 
