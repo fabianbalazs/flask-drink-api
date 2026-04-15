@@ -40,12 +40,46 @@ def get_drink(id):
 
 @app.route('/drinks', methods=['POST'])
 def add_drink():
-    drink = Drink(name=request.json['name'],description=request.json['description'])
+    data = request.get_json()
+
+    if not data:
+        return {"error": "Request must be JSON"}, 400
+
+    errors = []
+
+    if 'name' not in data:
+        errors.append("name is required")
+    if 'description' not in data:
+        errors.append("description is required")
+
+    if errors:
+        return {"errors": errors}, 400
+
+    name = data['name'].strip()
+    description = data['description'].strip()
+
+    if not name:
+        errors.append("name cannot be empty")
+
+    if len(description) > 150:
+        errors.append("description must be less than 150 characters")
+
+    if not description:
+        errors.append("description cannot be empty")
+
+    if errors:
+        return {"errors": errors}, 400
+
+    drink = Drink(name=name, description=description)
 
     db.session.add(drink)
     db.session.commit()
 
-    return {'id': drink.id}
+    return {
+        "id": drink.id,
+        "name": drink.name,
+        "description": drink.description
+    }, 201
 
 
 @app.route('/drinks/<id>', methods=['DELETE'])
@@ -59,3 +93,20 @@ def delete_drink(id):
     db.session.commit()
 
     return {"message": "Drink deleted"}
+
+@app.route('/drinks/<id>', methods=['PUT'])
+def put_drink(id):
+    drink = Drink.query.get(id)
+
+    if drink is None:
+        return {"error": "Drink not found"}, 404
+
+    drink.name = request.json['name']
+    drink.description = request.json['description']
+
+    db.session.commit()
+
+    return {
+        'id': drink.id,
+        "name": drink.name,
+        "description" : drink.description}
