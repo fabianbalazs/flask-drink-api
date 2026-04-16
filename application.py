@@ -41,7 +41,8 @@ def get_drink(id):
 @app.route('/drinks', methods=['POST'])
 def add_drink():
     data = request.get_json()
-    name = data.get('name')
+    if data:
+        name = data.get('name')
 
     if not data:
         return {"error": "Request must be JSON"}, 400
@@ -87,7 +88,7 @@ def add_drink():
     }, 201
 
 
-@app.route('/drinks/<id>', methods=['DELETE'])
+@app.route('/drinks/<int:id>', methods=['DELETE'])
 def delete_drink(id):
     drink = Drink.query.get(id)
 
@@ -99,15 +100,26 @@ def delete_drink(id):
 
     return {"message": "Drink deleted"}
 
-@app.route('/drinks/<id>', methods=['PUT'])
+
+@app.route('/drinks/<int:id>', methods=['PUT'])
 def put_drink(id):
+    data = request.get_json()
     drink = Drink.query.get(id)
 
-    if drink is None:
-        return {"error": "Drink not found"}, 404
+    if not data:
+        return {"error": "Invalid JSON"}, 400
 
-    drink.name = request.json['name']
-    drink.description = request.json['description']
+    if 'name' not in data or 'description' not in data:
+        return {"error": "Missing fields"}, 400
+
+    name = data['name'].strip()
+    description = data['description'].strip()
+
+    if not name or not description:
+        return {"error": "Empty fields"}, 400
+
+    drink.name = name
+    drink.description = description
 
     db.session.commit()
 
