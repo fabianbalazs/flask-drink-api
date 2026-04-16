@@ -41,16 +41,21 @@ def get_drink(id):
 @app.route('/drinks', methods=['POST'])
 def add_drink():
     data = request.get_json()
+    name = data.get('name')
 
     if not data:
         return {"error": "Request must be JSON"}, 400
 
     errors = []
 
+    existing_drink = Drink.query.filter_by(name=name).first()
+    if existing_drink:
+        return {"error": "Drink already exists"}, 400
+
     if 'name' not in data:
-        errors.append("name is required")
+        errors.append("Name is required")
     if 'description' not in data:
-        errors.append("description is required")
+        errors.append("Description is required")
 
     if errors:
         return {"errors": errors}, 400
